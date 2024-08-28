@@ -24,6 +24,9 @@ class Measure {
 		enum: MeasureType,
 	})
 	measure_type: MeasureType;
+
+	@Column({ default: false })
+	has_confirmed: boolean;
 }
 
 export default Measure;
