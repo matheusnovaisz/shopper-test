@@ -25,8 +25,17 @@ class MeasureController {
 		}
 	};
 
-	confirm = async (req: Request, res: Response) => {
-		res.send("Patched");
+	confirm = async (req: Request, res: Response, next: NextFunction) => {
+		try {
+			const { measure_uuid, confirmed_value } = req.body;
+			const measure = await this.measureService.confirm({
+				measure_uuid,
+				confirmed_value,
+			});
+			res.json({ success: true });
+		} catch (error) {
+			next(error);
+		}
 	};
 }
 
