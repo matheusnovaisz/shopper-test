@@ -1,5 +1,6 @@
 import dotenv from "dotenv";
 import express from "express";
+import customerRoutes from "./customers/customers.routes";
 import { AppDataSource } from "./data-source";
 import measuresRoutes from "./measures/measures.routes";
 import errorHandler from "./middleware/error-handler";
@@ -20,6 +21,7 @@ const port = process.env.APP_PORT || 5000;
 
 app.use(express.json());
 app.use(measuresRoutes);
+app.use(customerRoutes);
 app.use(errorHandler);
 
 const server = app.listen(port, () => {

@@ -12,8 +12,8 @@ class MeasureService {
 	create = async (measure: UploadMeasureDto) => {
 		const previousMeasure = await this.measuresRepository.findOne({
 			where: {
-				customer_code: measure.customer_code,
 				measure_type: measure.measure_type,
+				customer: { customer_code: measure.customer_code },
 			},
 		});
 		if (previousMeasure) {
@@ -23,11 +23,11 @@ class MeasureService {
 			});
 		}
 		return await this.measuresRepository.save({
-			customer_code: measure.customer_code,
 			measure_type: measure.measure_type,
 			measure_datetime: measure.measure_datetime,
 			image_url: measure.image,
 			measure_value: 0,
+			customer: { customer_code: measure.customer_code },
 		});
 	};
 }

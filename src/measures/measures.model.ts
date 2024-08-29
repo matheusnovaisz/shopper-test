@@ -1,5 +1,12 @@
 import "reflect-metadata";
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import {
+	Column,
+	Entity,
+	JoinColumn,
+	ManyToOne,
+	PrimaryGeneratedColumn,
+} from "typeorm";
+import Customer from "../customers/customers.model";
 import { MeasureType } from "./types/measures.enum";
 
 @Entity()
@@ -13,8 +20,9 @@ class Measure {
 	@Column()
 	measure_value: number;
 
-	@Column()
-	customer_code: string;
+	@ManyToOne(() => Customer, (customer) => customer.measures, { cascade: true })
+	@JoinColumn({ name: "customer_code" })
+	customer: Customer;
 
 	@Column()
 	measure_datetime: Date;

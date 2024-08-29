@@ -12,7 +12,6 @@ class MeasureController {
 
 	upload = async (req: Request, res: Response, next: NextFunction) => {
 		try {
-			console.log(req.body);
 			const { customer_code, measure_datetime, measure_type, image } = req.body;
 			const measure = await this.measureService.create({
 				image,
@@ -28,11 +27,6 @@ class MeasureController {
 
 	confirm = async (req: Request, res: Response) => {
 		res.send("Patched");
-	};
-
-	list = async (req: Request, res: Response) => {
-		console.log(req.params.customer_code);
-		res.send("List");
 	};
 }
 

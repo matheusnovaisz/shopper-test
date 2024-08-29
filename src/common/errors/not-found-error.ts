@@ -1,6 +1,6 @@
 import BaseError from "./base-error";
 
-class NotFound extends BaseError {
+class NotFoundError extends BaseError {
 	constructor({
 		error_code,
 		error_description,
@@ -12,3 +12,5 @@ class NotFound extends BaseError {
 		this.status = 404;
 	}
 }
+
+export default NotFoundError;

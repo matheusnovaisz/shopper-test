@@ -1,4 +1,5 @@
 import { DataSource } from "typeorm";
+import Customer from "./customers/customers.model";
 import Measure from "./measures/measures.model";
 
 export const AppDataSource = new DataSource({
@@ -9,8 +10,9 @@ export const AppDataSource = new DataSource({
 	password: "example",
 	database: "example",
 	synchronize: true,
-	logging: true,
-	entities: [Measure],
+	dropSchema: false,
+	// logging: true,
+	entities: [Measure, Customer],
 	subscribers: [],
 	migrations: [],
 });
