@@ -20,8 +20,7 @@ const app = express();
 const port = process.env.APP_PORT || 5000;
 
 app.use(express.json());
-app.use(measuresRoutes);
-app.use(customerRoutes);
+app.use([customerRoutes, measuresRoutes])
 app.use(errorHandler);
 
 const server = app.listen(port, () => {
