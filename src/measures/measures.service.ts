@@ -2,7 +2,7 @@ import ConflictError from "../common/errors/conflict-error";
 import NotFoundError from "../common/errors/not-found-error";
 import { AppDataSource } from "../data-source";
 import ConfirmRequestDto from "./dtos/ConfirmRequest.dto";
-import UploadMeasureDto from "./dtos/UploadRequest.dto";
+import CreateMeasureDto from "./dtos/CreateMeasure.dto";
 import Measure from "./measures.model";
 
 class MeasureService {
@@ -11,7 +11,7 @@ class MeasureService {
 		this.measuresRepository = AppDataSource.getRepository(Measure);
 	}
 
-	create = async (measure: UploadMeasureDto) => {
+	create = async (measure: CreateMeasureDto) => {
 		const previousMeasure = await this.measuresRepository.findOne({
 			where: {
 				measure_type: measure.measure_type,
@@ -27,8 +27,8 @@ class MeasureService {
 		return await this.measuresRepository.save({
 			measure_type: measure.measure_type,
 			measure_datetime: measure.measure_datetime,
-			image_url: measure.image,
-			measure_value: 0,
+			image_url: measure.image_url,
+			measure_value: measure.measure_value,
 			customer: { customer_code: measure.customer_code },
 		});
 	};

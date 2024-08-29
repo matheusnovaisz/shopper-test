@@ -1,4 +1,4 @@
-class ConfirmRequestDto {
+interface ConfirmRequestDto {
 	measure_uuid: string;
 	confirmed_value: number;
 }

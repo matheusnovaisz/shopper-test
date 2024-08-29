@@ -1,5 +1,7 @@
 import { NextFunction, Request, Response } from "express";
 import GeminiService from "../gemini/gemini.service";
+import saveBase64ImageOnDisk from "../image/upload.service";
+import UploadRequestDto from "./dtos/UploadRequest.dto";
 import MeasureService from "./measures.service";
 
 class MeasureController {
@@ -12,13 +14,26 @@ class MeasureController {
 
 	upload = async (req: Request, res: Response, next: NextFunction) => {
 		try {
-			const { customer_code, measure_datetime, measure_type, image } = req.body;
+			const {
+				customer_code,
+				measure_datetime,
+				measure_type,
+				image,
+			}: UploadRequestDto = req.body;
+
+			const { filePath, mimeType } = await saveBase64ImageOnDisk(image);
+
+			const result = await this.geminiService.read(image, mimeType);
+			const measure_value_response = Number(result.response.text());
+
+			// Save the image to the database
 			const { image_url, measure_value, measure_uuid } =
 				await this.measureService.create({
-					image,
+					image_url: filePath,
 					customer_code,
 					measure_datetime,
 					measure_type,
+					measure_value: measure_value_response,
 				});
 			res.json({ image_url, measure_value, measure_uuid });
 		} catch (error) {
@@ -29,7 +44,7 @@ class MeasureController {
 	confirm = async (req: Request, res: Response, next: NextFunction) => {
 		try {
 			const { measure_uuid, confirmed_value } = req.body;
-			const measure = await this.measureService.confirm({
+			await this.measureService.confirm({
 				measure_uuid,
 				confirmed_value,
 			});

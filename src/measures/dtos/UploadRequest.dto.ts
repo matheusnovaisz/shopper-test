@@ -1,10 +1,10 @@
 import { MeasureType } from "../types/measures.enum";
 
-class UploadMeasureDto {
+interface UploadRequestDto {
 	image: string;
 	customer_code: string;
 	measure_datetime: Date;
 	measure_type: MeasureType;
 }
 
-export default UploadMeasureDto;
+export default UploadRequestDto;
