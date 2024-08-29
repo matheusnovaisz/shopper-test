@@ -13,13 +13,14 @@ class MeasureController {
 	upload = async (req: Request, res: Response, next: NextFunction) => {
 		try {
 			const { customer_code, measure_datetime, measure_type, image } = req.body;
-			const measure = await this.measureService.create({
-				image,
-				customer_code,
-				measure_datetime,
-				measure_type,
-			});
-			res.json(measure);
+			const { image_url, measure_value, measure_uuid } =
+				await this.measureService.create({
+					image,
+					customer_code,
+					measure_datetime,
+					measure_type,
+				});
+			res.json({ image_url, measure_value, measure_uuid });
 		} catch (error) {
 			next(error);
 		}
