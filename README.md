@@ -4,7 +4,7 @@ Este projeto é um exemplo de um serviço que gerencia a leitura individualizada
 obter a medição através da foto de um medidor.
 
 # Como rodar o projeto
+
 ```
-npm install
 docker compose up --build
 ```
