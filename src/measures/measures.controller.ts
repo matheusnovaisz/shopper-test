@@ -23,8 +23,7 @@ class MeasureController {
 
 			const { filePath, mimeType } = await saveBase64ImageOnDisk(image);
 
-			const result = await this.geminiService.read(image, mimeType);
-			const measure_value_response = Number(result.response.text());
+			const geminiResponse = await this.geminiService.read(image, mimeType);
 
 			// Save the image to the database
 			const { image_url, measure_value, measure_uuid } =
@@ -33,7 +32,7 @@ class MeasureController {
 					customer_code,
 					measure_datetime,
 					measure_type,
-					measure_value: measure_value_response,
+					measure_value: geminiResponse,
 				});
 			res.json({ image_url, measure_value, measure_uuid });
 		} catch (error) {
