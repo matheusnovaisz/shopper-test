@@ -13,6 +13,7 @@ function errorHandler(
 			error_description: err.error_description,
 		});
 	} else {
+		console.error(err);
 		res.status(500).json({
 			error_code: "INTERNAL_SERVER_ERROR",
 			error_description: "Internal Server Error",
