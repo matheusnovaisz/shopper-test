@@ -56,7 +56,6 @@ class GeminiService {
 			},
 		]);
 		const object_response = JSON.parse(result.response.text());
-		console.dir(object_response);
 		if (object_response.error) {
 			throw new BadRequestError({
 				error_code: "INVALID_DATA",
