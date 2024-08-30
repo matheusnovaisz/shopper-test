@@ -15,6 +15,15 @@ const validateUpload = (req: Request, res: Response, next: NextFunction) => {
 			missingFields.push(key);
 		}
 	}
+	if (
+		requiredFields.measure_type &&
+		!["WATER", "GAS"].find((type) => type === requiredFields.measure_type)
+	) {
+		throw new BadRequestError({
+			error_code: "INVALID_DATA",
+			error_description: `Invalid measure type: ${requiredFields.measure_type}`,
+		});
+	}
 	if (missingFields.length > 0) {
 		throw new BadRequestError({
 			error_code: "INVALID_DATA",
