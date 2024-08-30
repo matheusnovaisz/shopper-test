@@ -4,7 +4,7 @@ import Measure from "./measures/measures.model";
 
 export const AppDataSource = new DataSource({
 	type: "postgres",
-	host: "localhost",
+	host: "db",
 	port: 5432,
 	username: "postgres",
 	password: "example",
